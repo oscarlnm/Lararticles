@@ -14,6 +14,13 @@ class Post extends Model
     
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'category',
+        'content',
+    ];
+
     //Administrar la tabla posts
     //protected $table = 'posts';
 

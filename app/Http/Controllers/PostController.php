@@ -21,14 +21,14 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $post = new Post();
-        
-        $post->title=$request->title;
-        $post->title=$request->slug;
-        $post->content=$request->content;
-        $post->category=$request->category;
-
-        $post->save();
+        /*$request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'content' => 'required',
+        ]);*/
+        Post::create($request->all()); // En vez de añadir valores uno a uno
+                                        // lo genera de una con asignación masiva.
         return redirect()->route('posts.index');
     }
 
@@ -44,20 +44,13 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $post->title=$request->title;
-        $post->slug=$request->slug;
-        $post->content=$request->content;
-        $post->category=$request->category;
-
-        $post->save();
-
+        $post->update($request->all());
         return redirect()->route('posts.show', $post);
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
-
-        return redirect()->route('posts.destroy', $post);
+        return redirect()->route('posts.index');
     }
 }
